@@ -1,0 +1,38 @@
+.mainBackground {
+    display: flex;
+    width: 80vw;
+    height: 80vh;
+    background-color: white;
+    justify-content: center; 
+    align-items: center;     
+    margin: 0 auto; 
+}
+
+.mainBody {
+    display: flex;
+    border-radius: 100px;
+    width: 80%; 
+    height: 78vh;
+    background-color: #E5E5E5;
+    justify-content: center;
+}
+
+.footer {
+    height: 10vh;
+    width: 100vw;
+    background-color: #018DC8;
+}
+
+.HeaderForOtherPages {
+    display: flex;
+    height: 10vh;
+    width: 100vw;
+    background-color: #018DC8;
+}
+
+.flymeIcon {
+    position: relative;
+    width:200px;
+    height: auto;
+    max-height: 100%;
+}
