@@ -14,7 +14,72 @@
     width: 80%; 
     height: 78vh;
     background-color: #E5E5E5;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flightPassCard {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; 
+    background-color: white;
+    gap:10px;
+    width: 50%;
+    height: 20%;
+    margin-top: 1%;
+    border-radius: 3vh;
+}
+
+.startAndEnd {
+    margin-top: 4%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.priceSect {
+    margin-top: 4%;
+    width: 10%; /* Явно задаем ширину */
+    padding: 0 5%;
+}
+
+.price {
+    font-size: 150%;
+    font-weight: 700;
+}
+
+.flightInfo {
+    width: 80%; 
+}
+
+.flightBar {
+    background-color: #606060;
+    width: 11vw;
+    height: 5px;
+    margin-top: 4%;
+    border-radius: 10vh;
+}
+
+.countries {
+    font-size: 150%;
+}
+
+.company {
+    color: rgb(0, 0, 0);
+    font-weight: 700;   
+}
+
+.buttonToSend {
+    display: flex;
+    width: 120%;
+    height: 4vh;
+    margin-top: 50%;
+    background-color: orangered;
+    border-radius: 10vh;
+    align-items: center;
     justify-content: center;
+    color: white;
 }
 
 .footer {
@@ -36,3 +101,4 @@
     height: auto;
     max-height: 100%;
 }
+

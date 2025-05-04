@@ -98,15 +98,15 @@ width: 100vw;
     margin-left: 10%;
     font-style: italic;
     font-weight: 900;
-    font-size: 50px;
+    font-size: 300%;
 }
 
 .titleName .SiteNameLow {
     color: #E5E5E5;
     font-family: 'Just Me Again Down Here', cursive;
-    margin-left: 12%;
+    margin-left: 15%;
     font-style: italic;
-    font-size: 30px;
+    font-size: 150%;
 }
 
 .choosingDir {
@@ -255,7 +255,7 @@ margin-top: 15%;
     height: 45vh;
     width: 97vw;
     align-content: flex-start;
-    border-radius: 100px;
+    border-radius: 10vh;
     
 }
 

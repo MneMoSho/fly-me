@@ -2,8 +2,9 @@ import axios from "axios"
 
 export default class FlightService {
 
-    static findFlight(destination) {
-        return axios.post('http://localhost:8080/api/flights/FindFromFront', destination);
+    static async findFlight(destination) {
+        const response = await axios.post('http://localhost:8080/api/flights/FindFromFront', destination);
+        return response.data;
     }
 
     static async findMinPrice() {

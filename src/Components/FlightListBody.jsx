@@ -1,22 +1,21 @@
 import FlightPage from '../styles/FlightPage.css'
 import React, { useState, useEffect } from "react";
-import FlightService from "../ServicesAPI/FlightServiceAPI";
+import { useLocation } from 'react-router-dom';
+import FlightListComponent from '../Components/FlightListComponent'
 
 const FlightListBody = (props) => {
 
-  //  const[foundFlights, setFoundFlights] = useState([])
+  const location = useLocation();
+  const { flights } = location.state || {};
 
-    // useEffect(() => {
-        // getFlights();
-    // }, [])
+  console.log(flights);
 
-
-    return (
-       // console.log("")
-       // <div className="mainBackground"> <div className="mainBody">DDDD</div> </div>
-
-       <div>DDD</div>
-    )
+  return (
+    <div className="mainBackground"> <div className="mainBody">
+      {flights.map(flight => (<FlightListComponent flight = {flight}/>))}
+    </div>
+    </div>
+  )
 
 }
 

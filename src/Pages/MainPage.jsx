@@ -20,11 +20,15 @@ const [destination, setDestination] = useState({
     endDestination: ""
   });
 
+  const [flights, seFlights] = useState([]);
+
   const navigate = useNavigate()
 
-  function getFlightFromAPI() {
-    FlightService.findFlight(destination);
-   // navigate('/flights/')
+  const getFlightFromAPI = async ()=> {
+    const response = await FlightService.findFlight(destination);
+    seFlights(response);
+    console.log(response);
+    navigate('/flights', {state : {flights : response}})
   }
 
   return (
