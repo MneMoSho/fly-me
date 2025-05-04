@@ -10,10 +10,13 @@ import FlightService from '../ServicesAPI/FlightServiceAPI';
 import DataInput from '../Components/DataInput'
 import CountryCard from '../Components/CountryCard'
 import FlightsList from '../Components/FlightsList'
-import {useHistory, useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import RegisterUserIcon from '../Components/RegisterUserIcon';
+import RegisterUserWindow from '../modalWindows/RegisterUserWindow'
+import UserMenu from '../modalWindows/UserMenu';
 
 function MainPage() {
-const [destination, setDestination] = useState({
+  const [destination, setDestination] = useState({
     timeLeaving: "",
     timeArriving: "",
     startDestination: "",
@@ -22,21 +25,43 @@ const [destination, setDestination] = useState({
 
   const [flights, seFlights] = useState([]);
 
+  const [modal, setModal] = useState(false);
+  const [userMenuVisible, setUserMenuVisible] = useState(false);
+
   const navigate = useNavigate()
 
-  const getFlightFromAPI = async ()=> {
+  const [currentUser, setCurrentUser] = useState(null);
+
+  const getFlightFromAPI = async () => {
     const response = await FlightService.findFlight(destination);
     seFlights(response);
     console.log(response);
-    navigate('/flights', {state : {flights : response}})
+    navigate('/flights', { state: { flights: response } })
   }
+
+  const handleProfileClick = () => {
+    if (currentUser) {
+      setUserMenuVisible(true);
+    } else {
+      setModal(true);
+    }
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null); 
+    localStorage.removeItem('currentUser');
+  };
+
+  const handleCountryClick = (countryName) => {
+    navigate('/flights', { state: { selectedCountry: countryName } });
+  };
 
   return (
     <div className="App">
-
       <div className="header">
-        <div className="sphere">
-          <div className="body"></div>
+
+        <div onClick={() => handleProfileClick(true)}>
+        <RegisterUserIcon username={currentUser?.username} />
         </div>
         <div className="questionMark">
           <h1>?</h1>
@@ -99,24 +124,34 @@ const [destination, setDestination] = useState({
       <div className="mostPopularDir">
 
         <div className="mostPopularContainer">
-          <CountryCard countryName="Japan" image={Japan} />
-          <CountryCard countryName="Russia" image={Russia} />
-          <CountryCard countryName="China" image={China} />
-          <CountryCard countryName="Georgia" image={Georgia} />
+          <CountryCard countryName="Japan" image={Japan} onClick={() => console.log('Japan')} />
+          <CountryCard countryName="Russia" image={Russia} onClick={() => handleCountryClick('Russia')} />
+          <CountryCard countryName="China" image={China} onClick={() => handleCountryClick('China')} />
+          <CountryCard countryName="Georgia" image={Georgia} onClick={() => handleCountryClick('Georgia')} />
         </div>
 
       </div>
 
       <div className="mostPopularCitites">
         <div className="citiesContainer">
-          <FlightsList/>
+          <FlightsList />
         </div>
       </div>
 
       <div className="footer">
         footer text
       </div>
+      <RegisterUserWindow visible={modal} setVisible={setModal} onRegisterSuccess={setCurrentUser}></RegisterUserWindow>
+      {currentUser && (
+        <UserMenu 
+          visible={userMenuVisible} 
+          setVisible={setUserMenuVisible} 
+          user={currentUser}
+          onLogout={handleLogout}
+        />
+      )}
     </div>
+
   );
 }
 

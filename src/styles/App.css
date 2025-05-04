@@ -29,26 +29,36 @@ width: 100vw;
     width: 100vw;
 }
 
-.sphere {
-    display: flex;
-    justify-content: center;
-    background-color: #E5E5E5;
+.Person {
+    position: absolute;
     right: 25%;
-   position: absolute;
-   margin-top: 25px;
-    border-radius: 45%;
+    margin-top: 25px;
+    height: 55px; /* Общая высота иконки */
+    width: 40px; /* Ширина по самому широкому элементу (body) */
+}
+
+.sphere {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #E5E5E5;
+    border-radius: 40vh;
     height: 28px;
-    width: 24px;
+    width: 28px;
+    z-index: 2;
 }
 
 .body {
-    background-color: #E5E5E5;
     position: absolute;
-    margin-top: 29px;
+    top: 55%; 
+    left: 0;
+    background-color: #E5E5E5;
     border-top-left-radius: 60%;
     border-top-right-radius: 60%;
     height: 27px;
     width: 40px;
+    z-index: 1;
 }
 
 .questionMark {
