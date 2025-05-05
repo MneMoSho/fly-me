@@ -43,4 +43,18 @@ export default class FlightService {
             `http://localhost:8080/api/users/removeUser?flightId=${flightId}`, user);
         return response.data;
     }
+
+    static async setFlightsByCountry(destination) {
+        console.log(destination);
+        const response = await axios.get('http://localhost:8080/api/flights/findAllToursByCountry', {
+            params: { country: destination }
+        });
+        return response.data;
+    }
+
+    static async bookFlight({ user, flightId }) {
+        const response = await axios.post(
+            `http://localhost:8080/api/users/saveFlightToUser?flightId=${flightId}`, user);
+        return response.data;
+    }
 }

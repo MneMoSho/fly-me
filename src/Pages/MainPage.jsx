@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '@fontsource/just-me-again-down-here';
 import '@fontsource/inter';
 import '../styles/App.css'
@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import RegisterUserIcon from '../Components/RegisterUserIcon';
 import RegisterUserWindow from '../modalWindows/RegisterUserWindow'
 import UserMenu from '../modalWindows/UserMenu';
+import CountryPage from './CountryPage';
 
 function MainPage() {
   const [destination, setDestination] = useState({
@@ -27,12 +28,29 @@ function MainPage() {
 
   const [modal, setModal] = useState(false);
   const [userMenuVisible, setUserMenuVisible] = useState(false);
-
+  const [validateInputs, setValidateInputs] = useState(false);
   const navigate = useNavigate()
 
   const [currentUser, setCurrentUser] = useState(null);
 
+  useEffect(() => {
+    const savedUser = localStorage.getItem('currentUser');
+    if (savedUser) {
+      setCurrentUser(JSON.parse(savedUser));
+    }
+  }, []);
+
   const getFlightFromAPI = async () => {
+    setValidateInputs(true);
+    if (
+      !destination.timeLeaving ||
+      !destination.startDestination ||
+      !destination.endDestination ||
+      !destination.timeArriving
+    ) {
+      return; // Stop if any field is empty
+    }
+
     const response = await FlightService.findFlight(destination);
     seFlights(response);
     console.log(response);
@@ -47,13 +65,18 @@ function MainPage() {
     }
   };
 
+  const handleLogin = (user) => {
+    setCurrentUser(user);
+    localStorage.setItem('currentUser', JSON.stringify(user)); // Save user to localStorage
+  };
+
   const handleLogout = () => {
-    setCurrentUser(null); 
-    localStorage.removeItem('currentUser');
+    setCurrentUser(null);
+    localStorage.removeItem('currentUser'); // Remove user from localStorage
   };
 
   const handleCountryClick = (countryName) => {
-    navigate('/flights', { state: { selectedCountry: countryName } });
+    navigate('/countryFlights', { state: { selectedCountry: countryName, user: currentUser } });
   };
 
   return (
@@ -84,36 +107,43 @@ function MainPage() {
         <div className="forBestPrice">По лучшим ценам</div>
 
         <div className="dataInput">
-
           <div className="whenTo">
-            <DataInput fillName="I'm leaving at"
+            <DataInput
+              fillName="I'm leaving at"
               value={destination.timeLeaving}
-              onChange={event => setDestination({ ...destination, timeLeaving: event.target.value })}
+              onChange={(event) => setDestination({ ...destination, timeLeaving: event.target.value })}
+              showError={validateInputs && !destination.timeLeaving}
             />
           </div>
 
           <div className="where">
-            <DataInput fillName="leaving to"
-              value={destination.leavingFrom}
-              onChange={event => setDestination({ ...destination, startDestination: event.target.value })}
+            <DataInput
+              fillName="leaving to"
+              value={destination.startDestination}
+              onChange={(event) => setDestination({ ...destination, startDestination: event.target.value })}
+              showError={validateInputs && !destination.startDestination}
             />
           </div>
 
           <div className="where">
-            <DataInput fillName="leaving from"
-              value={destination.leavingTo}
-              onChange={event => setDestination({ ...destination, endDestination: event.target.value })}
+            <DataInput
+              fillName="leaving from"
+              value={destination.endDestination}
+              onChange={(event) => setDestination({ ...destination, endDestination: event.target.value })}
+              showError={validateInputs && !destination.endDestination}
             />
           </div>
 
           <div className="whenFrom">
-            <DataInput fillName="I'm coming at"
+            <DataInput
+              fillName="I'm coming at"
               value={destination.timeArriving}
-              onChange={event => setDestination({ ...destination, timeArriving: event.target.value })}
+              onChange={(event) => setDestination({ ...destination, timeArriving: event.target.value })}
+              showError={validateInputs && !destination.timeArriving}
             />
           </div>
-
         </div>
+
         <div className="findButton" onClick={getFlightFromAPI}>
           <div className="find">
             find
@@ -124,7 +154,7 @@ function MainPage() {
       <div className="mostPopularDir">
 
         <div className="mostPopularContainer">
-          <CountryCard countryName="Japan" image={Japan} onClick={() => console.log('Japan')} />
+          <CountryCard countryName="Japan" image={Japan} onClick={() => handleCountryClick('Japan')} />
           <CountryCard countryName="Russia" image={Russia} onClick={() => handleCountryClick('Russia')} />
           <CountryCard countryName="China" image={China} onClick={() => handleCountryClick('China')} />
           <CountryCard countryName="Georgia" image={Georgia} onClick={() => handleCountryClick('Georgia')} />
@@ -141,7 +171,7 @@ function MainPage() {
       <div className="footer">
         footer text
       </div>
-      <RegisterUserWindow visible={modal} setVisible={setModal} onRegisterSuccess={setCurrentUser}></RegisterUserWindow>
+      <RegisterUserWindow visible={modal} setVisible={setModal} onRegisterSuccess={handleLogin}></RegisterUserWindow>
       {currentUser && (
         <UserMenu 
           visible={userMenuVisible} 

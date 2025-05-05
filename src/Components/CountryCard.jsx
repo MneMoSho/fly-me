@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import FlightService from '../ServicesAPI/FlightServiceAPI';
 
-const CountryCard = (props) => {
+const CountryCard = ({ countryName, image, onClick }) => {
      const [minPrice, setMinPrice] = useState(0);
+     const navigate = useNavigate();
 
      useEffect(() => {
         findMinPrice();
@@ -12,11 +14,16 @@ const CountryCard = (props) => {
       const price = await FlightService.findMinPrice();
       setMinPrice(price);
   }
-// добавить поиск по стране
+
+  const handleClick = () => {
+   // navigate('/countryFlights', { state: { selectedCountry: props.countryName } });
+   onClick()
+  };
+
     return (
-        <div className="cityCard">
-            <div className="someText">{props.countryName}</div>
-            <img src={props.image} alt="Флаг страны" className="countryFlag" />
+        <div className="cityCard" onClick={handleClick}>
+            <div className="someText">{countryName}</div>
+            <img src={image} alt="Флаг страны" className="countryFlag" />
             <div className="minPrice">from {minPrice} $</div>
         </div>
     )

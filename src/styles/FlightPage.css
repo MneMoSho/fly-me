@@ -12,10 +12,12 @@
     display: flex;
     border-radius: 100px;
     width: 80%;
-    height: 78vh;
+    height: 90%;
     background-color: #E5E5E5;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto; /* Enables vertical scrolling if content overflows */
+    max-height: 80vh; /* Limits the maximum height */
   }
   
   .flightPassCard {
@@ -28,6 +30,12 @@
     height: 20%;
     margin-top: 1%;
     border-radius: 3vh;
+    margin-bottom: 20px;
+  }
+  
+  .flightPassCard.userHasFlight {
+    background-color: #d3f9d8; /* Light green background for flights the user already has */
+    border: 2px solid #34c759; /* Green border */
   }
   
   .startAndEnd {
@@ -45,7 +53,7 @@
   }
   
   .price {
-    font-size: 150%;
+    font-size: 200%;
     font-weight: 700;
   }
   
@@ -74,12 +82,14 @@
     display: flex;
     width: 120%;
     height: 4vh;
-    margin-top: 50%;
+    margin-top: 40%;
+    margin-bottom: 10px;
     background-color: orangered;
     border-radius: 10vh;
     align-items: center;
     justify-content: center;
     color: white;
+    cursor: pointer; /* Change cursor to pointer on hover */
   }
   
   .footer {
@@ -90,7 +100,7 @@
   
   .HeaderForOtherPages {
     display: flex;
-    height: 10vh;
+    height: 12vh;
     width: 100vw;
     background-color: #018DC8;
   }
@@ -288,4 +298,15 @@
 
 .userFlightDeleteButton:hover {
     background-color: #d9363e;
+}
+
+.mostPopularCountries {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.titleText {
+  display: flex;
+  justify-content: center;
 }

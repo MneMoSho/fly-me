@@ -98,6 +98,7 @@ width: 100vw;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    width: 10%;
     height: 100vh;
 }
 
@@ -222,6 +223,7 @@ margin-top: 15%;
 
 
 .cityCard {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -232,7 +234,8 @@ margin-top: 15%;
     border-radius: 100px;
     margin: 0 20px;
     padding: 20px; 
-    box-sizing: border-box; 
+    box-sizing: border-box;
+    cursor: pointer; 
 }
 
 .someText {
@@ -333,13 +336,18 @@ margin-top: 15%;
 
 .inputTime {
     width: 80%;
-    height: 80px; 
+    height: 80px;
     margin-left: 10%;
     background-color: transparent;
     outline: none;
-    border: none;
+    border: 2px solid transparent; /* Default transparent border */
     color: #000000;
     font-size: 150%;
+    transition: border-color 0.3s; /* Smooth transition for border color */
+}
+
+.inputTime.empty {
+    border: 2px solid red; /* Red border when input is empty */
 }
 
 .find {
