@@ -5,6 +5,7 @@ import Flights from "./Pages/Flights";
 import { AuthContext } from "./Context";
 import UserFlights from "./Pages/UserFlights"
 import CountryPage from "./Pages/CountryPage";
+import FindByCity from "./Components/FindByCity";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -47,6 +48,7 @@ function App() {
           <Route path="/flights/" element={<Flights />} />
           <Route path="/userFlights" element={<UserFlights />} />
           <Route path="/countryFlights" element={<CountryPage />} />
+          <Route path="/flightsByCities" element={<FindByCity />} />
         </Routes>
       </BrowserRouter>
     </AuthContext.Provider>

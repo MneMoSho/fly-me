@@ -134,7 +134,7 @@
     font-weight: 900;
     align-items: center;
     justify-content: center;
-    color: #ffffff;
+    color: #018DC8;
   }
   
   .buttonContainer {
@@ -309,4 +309,8 @@
 .titleText {
   display: flex;
   justify-content: center;
+}
+
+.timeLeaving {
+  font-weight: 700;
 }

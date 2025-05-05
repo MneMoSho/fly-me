@@ -1,10 +1,8 @@
-
 .header {
     position:relative;
-    font-family: 'Inter', sans-serif;
     width: 100vw;
     height: 12vh;
-    background-color: #9AAACB;
+    background-color: #018DC8;
     top: 0;
 }
 
@@ -93,7 +91,7 @@ width: 100vw;
 }
 
 .titleName {
-    margin: 0;
+    margin-left: 100px; /* Adjust the margin to move the title */
     position: relative;
     display: flex;
     flex-direction: column;
@@ -292,6 +290,7 @@ margin-top: 15%;
     gap: 10%;         
     flex-shrink: 0;    
     white-space: nowrap; 
+    cursor: pointer; /* Change cursor to pointer on hover */
 }
 
 .countryCardTitle {

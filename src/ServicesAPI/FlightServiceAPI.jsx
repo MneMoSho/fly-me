@@ -3,6 +3,7 @@ import axios from "axios"
 export default class FlightService {
 
     static async findFlight(destination) {
+        console.log(destination);
         const response = await axios.post('http://localhost:8080/api/flights/FindFromFront', destination);
         return response.data;
     }
@@ -53,8 +54,23 @@ export default class FlightService {
     }
 
     static async bookFlight({ user, flightId }) {
-        const response = await axios.post(
-            `http://localhost:8080/api/users/saveFlightToUser?flightId=${flightId}`, user);
-        return response.data;
+        console.log(flightId);
+       const response = await axios.post(
+           `http://localhost:8080/api/users/saveFlightToUser?flightId=${flightId}`, user);
+       return response.data;
     }
+
+    static async findFlightByCity(flight) {
+        console.log(flight);
+       const response = await axios.post(
+           'http://localhost:8080/api/flights/findOnlyByCities', flight);
+       return response.data;
+    }
+
+    static async createNewFlight(flight) {
+        console.log(flight);
+       const response = await axios.post(
+           'http://localhost:8080/api/flights/createNewFlight', flight);
+       return response.data;
+    }  
 }

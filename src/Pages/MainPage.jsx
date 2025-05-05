@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import RegisterUserIcon from '../Components/RegisterUserIcon';
 import RegisterUserWindow from '../modalWindows/RegisterUserWindow'
 import UserMenu from '../modalWindows/UserMenu';
-import CountryPage from './CountryPage';
+import Footer from '../Components/Footer';
 
 function MainPage() {
   const [destination, setDestination] = useState({
@@ -48,7 +48,7 @@ function MainPage() {
       !destination.endDestination ||
       !destination.timeArriving
     ) {
-      return; // Stop if any field is empty
+      return;
     }
 
     const response = await FlightService.findFlight(destination);
@@ -67,12 +67,12 @@ function MainPage() {
 
   const handleLogin = (user) => {
     setCurrentUser(user);
-    localStorage.setItem('currentUser', JSON.stringify(user)); // Save user to localStorage
+    localStorage.setItem('currentUser', JSON.stringify(user)); 
   };
 
   const handleLogout = () => {
     setCurrentUser(null);
-    localStorage.removeItem('currentUser'); // Remove user from localStorage
+    localStorage.removeItem('currentUser');
   };
 
   const handleCountryClick = (countryName) => {
@@ -109,16 +109,16 @@ function MainPage() {
         <div className="dataInput">
           <div className="whenTo">
             <DataInput
-              fillName="I'm leaving at"
-              value={destination.timeLeaving}
-              onChange={(event) => setDestination({ ...destination, timeLeaving: event.target.value })}
-              showError={validateInputs && !destination.timeLeaving}
+              fillName="I'm arriving at"
+              value={destination.timeArriving}
+              onChange={(event) => setDestination({ ...destination, timeArriving: event.target.value })}
+              showError={validateInputs && !destination.timeArriving}
             />
           </div>
 
           <div className="where">
             <DataInput
-              fillName="leaving to"
+              fillName="going from"
               value={destination.startDestination}
               onChange={(event) => setDestination({ ...destination, startDestination: event.target.value })}
               showError={validateInputs && !destination.startDestination}
@@ -127,7 +127,7 @@ function MainPage() {
 
           <div className="where">
             <DataInput
-              fillName="leaving from"
+              fillName="going to"
               value={destination.endDestination}
               onChange={(event) => setDestination({ ...destination, endDestination: event.target.value })}
               showError={validateInputs && !destination.endDestination}
@@ -136,10 +136,10 @@ function MainPage() {
 
           <div className="whenFrom">
             <DataInput
-              fillName="I'm coming at"
-              value={destination.timeArriving}
-              onChange={(event) => setDestination({ ...destination, timeArriving: event.target.value })}
-              showError={validateInputs && !destination.timeArriving}
+              fillName="I'm leaving at"
+              value={destination.timeLeaving}
+              onChange={(event) => setDestination({ ...destination, timeLeaving: event.target.value })}
+              showError={validateInputs && !destination.timeLeaving}
             />
           </div>
         </div>
@@ -168,9 +168,7 @@ function MainPage() {
         </div>
       </div>
 
-      <div className="footer">
-        footer text
-      </div>
+      <Footer />
       <RegisterUserWindow visible={modal} setVisible={setModal} onRegisterSuccess={handleLogin}></RegisterUserWindow>
       {currentUser && (
         <UserMenu 

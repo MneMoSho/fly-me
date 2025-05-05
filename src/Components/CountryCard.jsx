@@ -16,7 +16,6 @@ const CountryCard = ({ countryName, image, onClick }) => {
   }
 
   const handleClick = () => {
-   // navigate('/countryFlights', { state: { selectedCountry: props.countryName } });
    onClick()
   };
 
