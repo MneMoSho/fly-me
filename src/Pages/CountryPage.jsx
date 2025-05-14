@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import Header from '../Components/Header';
 import FlightsDisplay from '../Components/FlightsDisplay';
 import FlightService from '../ServicesAPI/FlightServiceAPI';
+import Footer from '../Components/Footer';
 
 const CountryPage = () => {
     const location = useLocation();
@@ -11,7 +12,7 @@ const CountryPage = () => {
 
     useEffect(() => {
         if (user) {
-            console.log(`User Info: Username - ${user.username}, Password - ${user.password}`);
+            // console.log(`User Info: Username - ${user.username}, Password - ${user.password}`);
         }
     }, [user]);
 
@@ -24,7 +25,7 @@ const CountryPage = () => {
     }, [selectedCountry]);
 
     return (
-        <div>
+        <div className="countryPage">
             <Header />
             <h1 className="titleText">Welcome to {selectedCountry}</h1>
             <div className="mostPopularCountries">

@@ -15,6 +15,7 @@ import RegisterUserIcon from '../Components/RegisterUserIcon';
 import RegisterUserWindow from '../modalWindows/RegisterUserWindow'
 import UserMenu from '../modalWindows/UserMenu';
 import Footer from '../Components/Footer';
+import DatePickerComponent from '../Components/DatePickerComponent';
 
 function MainPage() {
   const [destination, setDestination] = useState({
@@ -25,6 +26,7 @@ function MainPage() {
   });
 
   const [flights, seFlights] = useState([]);
+  const [noFlightsFound, setNoFlightsFound] = useState(false);
 
   const [modal, setModal] = useState(false);
   const [userMenuVisible, setUserMenuVisible] = useState(false);
@@ -42,6 +44,7 @@ function MainPage() {
 
   const getFlightFromAPI = async () => {
     setValidateInputs(true);
+    console.log(destination.timeLeaving);
     if (
       !destination.timeLeaving ||
       !destination.startDestination ||
@@ -51,11 +54,24 @@ function MainPage() {
       return;
     }
 
+    const leavingDate = new Date(destination.timeLeaving);
+    const arrivingDate = new Date(destination.timeArriving);
+
+    if (leavingDate < arrivingDate) {
+      alert("The leaving time cannot be earlier than the arriving time.");
+      return;
+    }
+
     const response = await FlightService.findFlight(destination);
-    seFlights(response);
-    console.log(response);
-    navigate('/flights', { state: { flights: response } })
-  }
+    if (response.length === 0) {
+      alert("No flights found for the selected criteria.");
+      setNoFlightsFound(true);
+    } else {
+      setNoFlightsFound(false);
+      seFlights(response);
+      navigate('/flights', { state: { flights: response } });
+    }
+  };
 
   const handleProfileClick = () => {
     if (currentUser) {
@@ -77,6 +93,10 @@ function MainPage() {
 
   const handleCountryClick = (countryName) => {
     navigate('/countryFlights', { state: { selectedCountry: countryName, user: currentUser } });
+  };
+
+  const handleQuestionMarkClick = () => {
+    // Placeholder for future functionality
   };
 
   return (
@@ -103,13 +123,12 @@ function MainPage() {
           <div className='Squares bottom-left'></div>
         </div>
 
-        <div className="bestTickets"><span id="line1">Лучшие</span> <span id="line2">авиабилеты</span></div>
-        <div className="forBestPrice">По лучшим ценам</div>
-
+        <div className="bestTickets"><span id="line1">Best</span> <span id="line2">tickets</span></div>
+        <div className="forBestPrice">For the best price</div>
         <div className="dataInput">
           <div className="whenTo">
-            <DataInput
-              fillName="I'm arriving at"
+            <DatePickerComponent
+              placeholder="I'm arriving at"
               value={destination.timeArriving}
               onChange={(event) => setDestination({ ...destination, timeArriving: event.target.value })}
               showError={validateInputs && !destination.timeArriving}
@@ -135,8 +154,8 @@ function MainPage() {
           </div>
 
           <div className="whenFrom">
-            <DataInput
-              fillName="I'm leaving at"
+            <DatePickerComponent
+              placeholder="I'm leaving at"
               value={destination.timeLeaving}
               onChange={(event) => setDestination({ ...destination, timeLeaving: event.target.value })}
               showError={validateInputs && !destination.timeLeaving}
@@ -146,7 +165,7 @@ function MainPage() {
 
         <div className="findButton" onClick={getFlightFromAPI}>
           <div className="find">
-            find
+            search
           </div>
         </div>
       </div>
@@ -163,6 +182,7 @@ function MainPage() {
       </div>
 
       <div className="mostPopularCitites">
+       <div className="titleCities">The most popular routes</div> 
         <div className="citiesContainer">
           <FlightsList />
         </div>

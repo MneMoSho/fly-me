@@ -12,7 +12,7 @@ const FlightsList = () => {
 
     const getFlights = async () => {
         const flightsToSet = await FlightService.findAllUniqueCities();
-        setFlights(flightsToSet);
+        setFlights(flightsToSet.slice(0, 8)); // Limit to 8 elements
     }
 
     return (
@@ -24,4 +24,4 @@ const FlightsList = () => {
     );
 };
 
-export default FlightsList
+export default FlightsList;

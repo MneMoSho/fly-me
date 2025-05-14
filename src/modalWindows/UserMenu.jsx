@@ -48,7 +48,7 @@ const UserMenu = ({ visible, setVisible, user, onLogout }) => {
                     close
                 </div>
             </div>
-            <FlightInputModal visible={flightModalVisible} setVisible={setFlightModalVisible} onSubmit={(data) => console.log(data)} />
+            <FlightInputModal visible={flightModalVisible} setVisible={setFlightModalVisible} onSubmit={(data) => {}} />
         </div>
     );
 };

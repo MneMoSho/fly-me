@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import '../styles/App.css';
 import UserFlightsList from "../Components/UserFlightsList";
 import '../styles/FlightPage.css'; // Импортируем файл стилей для этой страницы
+import Footer from '../Components/Footer';
 
 const Flights = () => {
   const location = useLocation();
@@ -20,6 +21,7 @@ const Flights = () => {
           <div onClick={() => navigate('/')} className="Button">Back to Main Page</div>
         </div>
       </div>
+        <Footer />
     </div>
   );
 };

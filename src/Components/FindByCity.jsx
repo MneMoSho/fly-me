@@ -5,6 +5,7 @@ import Header from '../Components/Header';
 import FlightListBody from "../Components/FlightListBody";
 import FlightsList from '../Components/FlightsList';
 import { AuthContext } from '../Context';
+import Footer from '../Components/Footer';
 
 const FindByCity = () => {
     const location = useLocation();
@@ -22,7 +23,6 @@ const FindByCity = () => {
                     user: currentUser 
                 });
                 setFlights(response);
-                console.log("Flights fetched:", response);
             };
             fetchFlights();
         }
@@ -34,10 +34,12 @@ const FindByCity = () => {
             <h1>Flights from {startDestination} to {endDestination}</h1>
             <FlightListBody flights={flights} user={currentUser} />
             <div className="mostPopularCitites">
+                       <div className="titleCities">The most popular routes</div> 
                 <div className="citiesContainer">
                     <FlightsList flights={flights} />
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

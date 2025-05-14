@@ -12,8 +12,8 @@ const Header = () => {
 
     return (
         <div className="HeaderForOtherPages">
-            <img src={test} alt="Флаг страны" className="flyMeIcon" />
-            <div className="titleName" onClick={handleTitleClick} style={{ cursor: 'pointer' }}>
+            <img src={test} alt="Флаг страны" className="flyMeIcon" onClick={handleTitleClick} style={{ cursor: 'pointer' }} />
+            <div className="titleNameForPages" onClick={handleTitleClick} style={{ cursor: 'pointer' }}>
                 <div className="SiteName">Fly me</div>
                 <div className="SiteNameLow">to the moon</div>
             </div>
